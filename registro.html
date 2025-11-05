@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | ZYMO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { 'negro-900': '#0a0a0a' } } } }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-negro-900 text-white font-sans min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h1 class="text-3xl font-extrabold mb-1">Crear cuenta</h1>
+        <p class="text-white/70 mb-6">Plan seleccionado: <span id="planSel" class="font-semibold">Básico</span></p>
+        <form class="space-y-4">
+            <input type="text" placeholder="Nombre" class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3" required>
+            <input type="email" placeholder="Correo" class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3" required>
+            <input type="password" placeholder="Contraseña" class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3" required>
+            <button class="w-full bg-white text-black font-semibold py-3 rounded-lg">Continuar</button>
+        </form>
+        <a href="index.html" class="block text-center mt-4 text-white/70 hover:text-white">Volver al inicio</a>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(location.search);
+        const plan = params.get('plan');
+        const map = { basico: 'Básico', pro: 'Pro', proplus: 'Pro+' };
+        if (plan && map[plan]) {
+            document.getElementById('planSel').textContent = map[plan];
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

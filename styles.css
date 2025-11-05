@@ -1,0 +1,213 @@
+/* Variables de Color (Monocromático Beige) */
+:root {
+    --color-primary: #efebe9; /* Beige Muy Claro (Fondo Principal) */
+    --color-secondary: #d7ccc8; /* Beige Cálido Medio (Fondo Secundario/Cartas) */
+    --color-accent: #a1887f; /* Beige-Marrón (Botones/Énfasis) */
+    --color-text: #3e2723; /* Marrón Oscuro (Texto) */
+    --color-light-text: #6d4c41; /* Marrón Medio (Texto Secundario) */
+}
+
+/* Estilos Generales */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    padding-top: 60px; /* Espacio para el header fijo */
+}
+
+h1, h2, h3 {
+    color: var(--color-text);
+    margin-bottom: 0.5em;
+}
+
+/* --- Header y Navegación --- */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: var(--color-secondary); /* Un tono más oscuro */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+.nav a {
+    color: var(--color-text);
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav a:hover {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+    border-radius: 4px;
+}
+
+/* --- Estilos de Secciones --- */
+section {
+    padding: 50px 5%;
+    text-align: center;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: var(--color-secondary);
+    width: 80%;
+    margin: 20px auto;
+}
+
+/* --- Sección Hero (Principal) --- */
+.hero {
+    background-color: var(--color-primary);
+    padding: 100px 5%;
+}
+
+.hero h1 {
+    font-size: 3em;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 25px;
+    color: var(--color-light-text);
+}
+
+.cta-button {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+/* Animación del Botón CTA (Hover) */
+.cta-button:hover {
+    background-color: #8d6e63; /* Tono más oscuro de accent */
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Sección de Características --- */
+.features {
+    background-color: var(--color-secondary);
+}
+
+.feature-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.feature-card {
+    background-color: var(--color-primary);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    max-width: 300px;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Animación de las Tarjetas (Hover) */
+.feature-card:hover {
+    transform: translateY(-10px) rotate(1deg); /* Ligero movimiento y rotación */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Sección de Comunidad/Foro --- */
+.community {
+    background-color: var(--color-primary);
+}
+
+.forum-post {
+    background-color: var(--color-secondary);
+    padding: 20px;
+    margin: 15px auto;
+    border-radius: 6px;
+    max-width: 600px;
+    text-align: left;
+    transition: background-color 0.3s, opacity 1s;
+}
+
+.forum-post h3 {
+    margin-top: 0;
+}
+
+.forum-post p {
+    color: var(--color-light-text);
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.view-button {
+    background-color: var(--color-text);
+    color: var(--color-primary);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.view-button:hover {
+    background-color: var(--color-light-text);
+}
+
+/* --- Animación de Entrada para Posts (Keyframes) --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animated-card, .animated-post {
+    animation: fadeIn 0.8s ease-out backwards; /* 'backwards' para que mantenga el estilo final */
+}
+
+/* Aplicar diferentes retrasos para un efecto de "cascada" */
+.feature-grid .feature-card:nth-child(1) { animation-delay: 0.2s; }
+.feature-grid .feature-card:nth-child(2) { animation-delay: 0.4s; }
+.feature-grid .feature-card:nth-child(3) { animation-delay: 0.6s; }
+.community .forum-post:nth-child(3) { animation-delay: 0.8s; }
+.community .forum-post:nth-child(4) { animation-delay: 1.0s; }
+
+
+/* --- Footer --- */
+.footer {
+    background-color: var(--color-text);
+    color: var(--color-secondary);
+    padding: 20px;
+    text-align: center;
+    font-size: 0.9em;
+}

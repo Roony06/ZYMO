@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receta - Kimchi | ZYMO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { 'negro-900': '#0a0a0a', 'negro-800': '#141414', 'negro-700': '#1f1f1f', 'acento': '#e5e5e5' }, fontFamily: { sans: ['Inter', 'sans-serif'] }, } } }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeInSlide { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+        .animated-card { animation: fadeInSlide 0.9s ease-out both; }
+        .btn-acento{position:relative;overflow:hidden;transition:transform .35s ease, box-shadow .6s ease, background-color .35s ease, color .35s ease, border-color .35s ease}
+        .btn-acento:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,0.28); }
+        .btn-acento:after{content:"";position:absolute;left:50%;top:50%;width:0;height:0;background:rgba(255,255,255,.45);border-radius:50%;transform:translate(-50%,-50%);opacity:0;transition:width .65s ease,height .65s ease,opacity .8s ease}
+        .btn-acento:active:after{width:220%;height:220%;opacity:.15;transition:0s}
+        .nav-fixed { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .rounded-xl, .rounded-2xl, .border { transition: transform .45s ease, box-shadow .6s ease, background-color .45s ease, border-color .45s ease }
+        .rounded-xl:hover, .rounded-2xl:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.28) }
+        [data-tilt]{transform-style:preserve-3d;transition:transform .35s ease, box-shadow .5s ease;will-change:transform}
+        [data-tilt]:hover{box-shadow:0 16px 40px rgba(0,0,0,.25)}
+    </style>
+    <meta name="description" content="Kimchi tradicional: fermento picante coreano lleno de sabor y probióticos.">
+</head>
+<body class="bg-negro-900 text-white font-sans min-h-screen">
+
+    <header class="nav-fixed sticky top-0 z-50 bg-black py-4" aria-label="Barra de navegación">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-white">ZYMO ✨</a>
+            <nav class="flex items-center gap-3" aria-label="Seleccionar receta">
+                <label for="receta-select" class="text-sm text-white/70">Recetas</label>
+                <select id="receta-select" class="bg-negro-700 border border-white/10 rounded-lg px-3 py-2 text-white" onchange="location.href=this.value">
+                    <option value="recetas.html">Todas las recetas</option>
+                    <option value="masa-madre.html">Masa Madre</option>
+                    <option value="vino.html">Vino</option>
+                    <option value="empanada.html">Empanada</option>
+                    <option value="kombucha.html">Kombucha</option>
+                    <option value="yogur.html">Yogur</option>
+                    <option value="queso-fresco.html">Queso Fresco</option>
+                    <option value="mermelada.html">Mermelada</option>
+                    <option value="pan-campo.html">Pan de Campo</option>
+                    <option value="chucrut.html">Chucrut</option>
+                    <option value="kimchi.html" selected>Kimchi</option>
+                    <option value="kefir-agua.html">Kéfir de Agua</option>
+                    <option value="pickles-rapidos.html">Pickles Rápidos</option>
+                    <option value="conserva-tomate.html">Conserva de Tomate</option>
+                    <option value="sidra.html">Sidra</option>
+                    <option value="mantequilla-casera.html">Mantequilla Casera</option>
+                </select>
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-12">
+        <section class="relative h-64 mb-8">
+            <img src="imagen 4.jpg" alt="Kimchi" class="absolute inset-0 w-full h-full object-cover filter grayscale" />
+            <div class="absolute inset-0 bg-black/50"></div>
+        </section>
+        <section class="max-w-4xl mx-auto px-4">
+            <h1 class="text-4xl font-extrabold mb-3">🌶️ Kimchi Tradicional</h1>
+            <p class="text-white/80 mb-8">Fermento coreano de col y rábano con pasta picante. Umami potente.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+                <div class="animated-card bg-white/5 p-4 rounded-xl border border-white/10" data-tilt>
+                    <p class="text-sm text-acento">Tiempo total</p>
+                    <p class="text-xl font-semibold">3-14 días</p>
+                </div>
+                <div class="animated-card bg-white/5 p-4 rounded-xl border border-white/10" data-tilt>
+                    <p class="text-sm text-acento">Dificultad</p>
+                    <p class="text-xl font-semibold">Media</p>
+                </div>
+                <div class="animated-card bg-white/5 p-4 rounded-xl border border-white/10" data-tilt>
+                    <p class="text-sm text-acento">Rendimiento</p>
+                    <p class="text-xl font-semibold">1-2 frascos</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <section class="bg-white/5 p-6 rounded-2xl shadow-sm border border-white/10" aria-labelledby="ingredientes">
+                    <h2 id="ingredientes" class="text-2xl font-bold mb-3">Ingredientes</h2>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Col napa</li>
+                        <li>Rábano daikon</li>
+                        <li>Sal (2%)</li>
+                        <li>Gochugaru, ajo, jengibre, salsa de pescado (opcional)</li>
+                    </ul>
+                </section>
+                <section class="bg-white/5 p-6 rounded-2xl shadow-sm border border-white/10" aria-labelledby="equipo">
+                    <h2 id="equipo" class="text-2xl font-bold mb-3">Equipo</h2>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Frascos con tapa</li>
+                        <li>Guantes</li>
+                        <li>Cuchillo y bowl</li>
+                    </ul>
+                </section>
+            </div>
+
+            <section class="bg-transparent">
+                <h2 class="text-2xl font-bold mb-4">Pasos detallados</h2>
+                <ol class="space-y-4">
+                    <li class="bg-white/5 p-5 rounded-xl border border-white/10"><strong>Salado:</strong> Saltea la col y reposa hasta ablandar. Enjuaga y escurre.</li>
+                    <li class="bg-white/5 p-5 rounded-xl border border-white/10"><strong>Mezcla picante:</strong> Prepara pasta con gochugaru, ajo, jengibre y líquidos.</li>
+                    <li class="bg-white/5 p-5 rounded-xl border border-white/10"><strong>Mezclar y envasar:</strong> Integra con rábano y embasa sin bolsas de aire.</li>
+                    <li class="bg-white/5 p-5 rounded-xl border border-white/10"><strong>Fermentar:</strong> 18-22°C, 3-7 días. Refrigera cuando el sabor agrade.</li>
+                </ol>
+            </section>
+
+            <section class="mt-10 bg-white/5 p-6 rounded-2xl border border-white/10">
+                <h2 class="text-2xl font-bold mb-3">Consejos</h2>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>Usa gochugaru para color y sabor auténtico.</li>
+                    <li>Evita llenar hasta el borde: expande al fermentar.</li>
+                    <li>Ajusta picante al gusto.</li>
+                </ul>
+            </section>
+
+            <div class="mt-10 flex flex-col sm:flex-row gap-4">
+                <a href="chucrut.html" class="btn-acento bg-black text-white px-6 py-3 rounded-lg font-semibold text-center">⟵ Anterior</a>
+                <a href="kefir-agua.html" class="btn-acento bg-white text-black px-6 py-3 rounded-lg font-semibold text-center">Siguiente ⟶</a>
+                <a href="recetas.html" class="btn-acento bg-white text-black px-6 py-3 rounded-lg font-semibold text-center">Ver todas las recetas</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black text-white/70 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>ZYMO | Kimchi</p>
+            <p class="mt-2 text-white/50">&copy; 2025 Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+
+

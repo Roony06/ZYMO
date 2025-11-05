@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión | ZYMO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'negro-900': '#0a0a0a',
+                        'negro-800': '#141414',
+                        'negro-700': '#1f1f1f',
+                        'acento': '#e5e5e5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeInSlide { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+        .animated-card { animation: fadeInSlide 0.9s ease-out both; }
+        .btn-acento{position:relative;overflow:hidden;transition:transform .35s ease, box-shadow .6s ease, background-color .35s ease, color .35s ease, border-color .35s ease}
+        .btn-acento:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,0.28); }
+        .btn-acento:after{content:"";position:absolute;left:50%;top:50%;width:0;height:0;background:rgba(255,255,255,.45);border-radius:50%;transform:translate(-50%,-50%);opacity:0;transition:width .65s ease,height .65s ease,opacity .8s ease}
+        .btn-acento:active:after{width:220%;height:220%;opacity:.15;transition:0s}
+        .nav-fixed { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+    </style>
+    <meta name="description" content="Inicia sesión para acceder a ZYMO.">
+    <link rel="icon" href="Principal.png">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="color-scheme" content="dark">
+</head>
+<body class="bg-negro-900 text-white font-sans min-h-screen">
+
+    <header class="nav-fixed sticky top-0 z-50 bg-black py-4" aria-label="Barra de navegación">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-white">ZYMO ✨</a>
+            <nav class="flex items-center gap-3" aria-label="Acciones">
+                <a href="recetas.html" class="text-sm text-white/80 hover:text-white">Recetas</a>
+                <a href="registro.html" class="text-sm text-white/60 hover:text-white">Crear cuenta</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-12">
+        <section class="max-w-md mx-auto px-4">
+            <div class="animated-card bg-white/5 p-6 rounded-2xl border border-white/10 shadow-sm">
+                <h1 class="text-2xl font-extrabold mb-1">Iniciar sesión</h1>
+                <p class="text-white/70 text-sm mb-6">Bienvenido de nuevo. Ingresa tus credenciales para continuar.</p>
+
+                <form id="loginForm" class="space-y-4" novalidate>
+                    <div>
+                        <label for="email" class="block text-sm mb-1 text-white/80">Correo electrónico</label>
+                        <input id="email" name="email" type="email" autocomplete="email" required
+                               class="w-full bg-negro-700 border border-white/10 rounded-lg px-3 py-2 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-white/30" placeholder="tucorreo@ejemplo.com">
+                        <p id="emailError" class="hidden mt-1 text-xs text-red-400">Ingresa un correo válido.</p>
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm mb-1 text-white/80">Contraseña</label>
+                        <div class="relative">
+                            <input id="password" name="password" type="password" autocomplete="current-password" required
+                                   class="w-full bg-negro-700 border border-white/10 rounded-lg px-3 py-2 pr-10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-white/30" placeholder="••••••••">
+                            <button type="button" id="togglePass" class="absolute inset-y-0 right-0 px-3 text-white/50 hover:text-white" aria-label="Mostrar contraseña">👁️</button>
+                        </div>
+                        <p id="passError" class="hidden mt-1 text-xs text-red-400">La contraseña es obligatoria.</p>
+                    </div>
+
+                    <button id="submitBtn" type="submit" class="btn-acento w-full bg-white text-black px-4 py-2 rounded-lg font-semibold hover:brightness-95">Iniciar sesión</button>
+                    <p id="formError" class="hidden text-sm text-red-400"></p>
+                    <p id="formOk" class="hidden text-sm text-emerald-400"></p>
+                </form>
+            </div>
+
+            <p class="mt-6 text-center text-white/60 text-sm">¿No tienes cuenta? <a class="text-white hover:underline" href="registro.html">Crear una cuenta</a></p>
+        </section>
+    </main>
+
+    <footer class="bg-black text-white/70 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>ZYMO | Acceso</p>
+            <p class="mt-2 text-white/50">&copy; 2025 Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+    (() => {
+        const form = document.getElementById('loginForm');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const togglePass = document.getElementById('togglePass');
+        const submitBtn = document.getElementById('submitBtn');
+        const emailError = document.getElementById('emailError');
+        const passError = document.getElementById('passError');
+        const formError = document.getElementById('formError');
+        const formOk = document.getElementById('formOk');
+
+        togglePass?.addEventListener('click', () => {
+            const isPwd = password.type === 'password';
+            password.type = isPwd ? 'text' : 'password';
+        });
+
+        function validate(){
+            let ok = true;
+            emailError.classList.add('hidden');
+            passError.classList.add('hidden');
+            formError.classList.add('hidden');
+            formOk.classList.add('hidden');
+
+            if (!email.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)){
+                emailError.classList.remove('hidden');
+                ok = false;
+            }
+            if (!password.value){
+                passError.classList.remove('hidden');
+                ok = false;
+            }
+            return ok;
+        }
+
+        form?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!validate()) return;
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = .7;
+            try {
+                const r = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email.value.trim(), password: password.value })
+                });
+                const data = await r.json();
+                if (!r.ok || !data?.ok){
+                    throw new Error(data?.error || 'Credenciales inválidas');
+                }
+                localStorage.setItem('zymoUser', JSON.stringify({ email: email.value.trim(), ts: Date.now() }));
+                formOk.textContent = '¡Bienvenido! Redirigiendo…';
+                formOk.classList.remove('hidden');
+                setTimeout(() => { window.location.href = 'index.html'; }, 800);
+            } catch (err) {
+                formError.textContent = err.message || 'Error al iniciar sesión';
+                formError.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = 1;
+            }
+        });
+    })();
+    </script>
+
+</body>
+</html>
+
+

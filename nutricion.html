@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrición y Bienestar | ZYMO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { 'negro-900':'#0a0a0a','negro-800':'#141414','negro-700':'#1f1f1f','acento':'#e5e5e5' }, fontFamily:{ sans:['Inter','sans-serif'] } } } }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeInSlide { from { opacity:0; transform: translateY(22px);} to { opacity:1; transform: translateY(0);} }
+        .animated-card{ animation: fadeInSlide .9s ease-out both; }
+        .btn-acento{ position:relative; overflow:hidden; transition: transform .35s ease, box-shadow .6s ease, background-color .35s ease, color .35s ease, border-color .35s ease }
+        .btn-acento:hover{ transform: translateY(-2px) scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,.28) }
+        .btn-acento:after{ content:""; position:absolute; left:50%; top:50%; width:0; height:0; background:rgba(255,255,255,.45); border-radius:50%; transform:translate(-50%,-50%); opacity:0; transition: width .65s ease, height .65s ease, opacity .8s ease }
+        .btn-acento:active:after{ width:220%; height:220%; opacity:.15; transition:0s }
+        .reveal{ opacity:0; transform: translateY(16px); transition: opacity .9s ease, transform .9s ease; transition-delay: var(--delay,0s) }
+        .reveal.visible{ opacity:1; transform: translateY(0) }
+        /* Shimmer */
+        .zimo-shimmer{ position:relative; display:inline-block }
+        .zimo-shimmer:after{ content:""; position:absolute; top:0; left:-120%; width:120%; height:100%; background:linear-gradient(100deg,transparent,rgba(255,255,255,.2),transparent); transform:skewX(-20deg); animation:zimoShimmer 4.5s ease-in-out 1s infinite }
+        @keyframes zimoShimmer{0%{left:-120%}60%{left:120%}100%{left:120%}}
+        /* Tilt */
+        [data-tilt]{ transform-style:preserve-3d; transition: transform .35s ease, box-shadow .5s ease; will-change: transform }
+        [data-tilt]:hover{ box-shadow: 0 16px 40px rgba(0,0,0,.25) }
+    </style>
+</head>
+<body class="bg-negro-900 text-white font-sans min-h-screen">
+
+    <header class="nav-fixed sticky top-0 z-50 bg-black py-4" aria-label="Barra de navegación">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-white">ZYMO ✨</a>
+            <nav class="space-x-4">
+                <a href="recetas.html" class="text-white hover:text-white/70 font-medium transition">Recetas</a>
+                <a href="comunidad.html" class="text-white/70 hover:text-white/90 font-medium transition">Comunidad</a>
+                <a href="nutricion.html" class="text-white/90 font-semibold">Nutrición</a>
+                <a href="index.html#planes" class="text-white/70 hover:text-white/90 font-medium transition">Planes</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Nutrición -->
+    <section id="hero" class="relative min-h-[60vh] overflow-hidden">
+        <img id="hero-bg" src="Principal.png" alt="Ingredientes frescos y saludables" class="absolute inset-0 w-full h-full object-cover object-center will-change-transform" />
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/65 to-black/90"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 py-16 flex items-end min-h-[60vh]">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-3 leading-tight text-white"><span class="zimo-shimmer">Nutrición y Bienestar</span></h1>
+                <p class="text-white/80 text-lg">Cuidarte es el primer ingrediente. Hábitos simples y sostenibles para cocinar mejor, rendir más y sentirte bien.</p>
+                <div class="mt-6 flex gap-3">
+                    <a href="#pilares" class="btn-acento bg-white text-black px-6 py-3 rounded-lg font-semibold zimo-ripple">Ver pilares</a>
+                    <a href="#tips" class="btn-acento bg-black/60 text-white px-6 py-3 rounded-lg font-semibold border border-white/20 backdrop-blur-sm zimo-ripple">Tips prácticos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <!-- Pilares de salud -->
+        <section id="pilares" class="py-14 bg-negro-800">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-8 text-beige-claro">Pilares clave para una vida saludable</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10" data-tilt style="--delay:.05s">
+                        <p class="text-2xl mb-2">🥗</p>
+                        <h3 class="font-semibold mb-1">Alimentación consciente</h3>
+                        <p class="text-sm text-white/70">80% real-food: frutas, verduras, legumbres, granos y proteínas de calidad.</p>
+                    </div>
+                    <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10" data-tilt style="--delay:.1s">
+                        <p class="text-2xl mb-2">💧</p>
+                        <h3 class="font-semibold mb-1">Hidratación</h3>
+                        <p class="text-sm text-white/70">2 L/día aprox. Ajusta por clima y actividad. Observa color de orina (claro).</p>
+                    </div>
+                    <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10" data-tilt style="--delay:.15s">
+                        <p class="text-2xl mb-2">🏃‍♀️</p>
+                        <h3 class="font-semibold mb-1">Movimiento diario</h3>
+                        <p class="text-sm text-white/70">Camina 8-10k pasos o 150 min/sem de actividad moderada + fuerza 2x.</p>
+                    </div>
+                    <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10" data-tilt style="--delay:.2s">
+                        <p class="text-2xl mb-2">😴</p>
+                        <h3 class="font-semibold mb-1">Sueño reparador</h3>
+                        <p class="text-sm text-white/70">7-9 horas, horario regular, menos pantallas antes de dormir.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Datos interesantes (cards) -->
+        <section id="datos" class="py-14 bg-negro-900">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10">Datos interesantes</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10" data-tilt>
+                        <h3 class="text-xl font-semibold mb-2">Plato saludable 🥗</h3>
+                        <p class="text-white/80">La mitad del plato verduras/fruit, 1/4 proteína y 1/4 granos integrales mejora saciedad y micronutrientes.</p>
+                    </div>
+                    <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10" data-tilt>
+                        <h3 class="text-xl font-semibold mb-2">Aceites y calor 🔥</h3>
+                        <p class="text-white/80">Usa aceites con punto de humo adecuado (oliva suave, girasol alto oleico). Evita humos visibles.</p>
+                    </div>
+                    <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10" data-tilt>
+                        <h3 class="text-xl font-semibold mb-2">Fibra y microbiota 🧫</h3>
+                        <p class="text-white/80">20-30 g/d de fibra promueven microbiota diversa; fermentos como kimchi/kéfir suman probióticos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips prácticos -->
+        <section id="tips" class="py-14 bg-negro-800">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-8 text-beige-claro">Tips para una vida saludable</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10" data-tilt>
+                        <h3 class="text-xl font-semibold mb-2">Planifica 1 vez por semana 📅</h3>
+                        <p class="text-white/80">Define 3-4 recetas base y prepara porciones dobles. Ahorras tiempo y reduces comida ultra-procesada.</p>
+                    </div>
+                    <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10" data-tilt>
+                        <h3 class="text-xl font-semibold mb-2">Proteína en cada comida 🍗</h3>
+                        <p class="text-white/80">Ayuda a saciar y preservar masa muscular. Alterna carnes magras, huevos, legumbres y lácteos.</p>
+                    </div>
+                    <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10" data-tilt>
+                        <h3 class="text-xl font-semibold mb-2">Color en el plato 🌈</h3>
+                        <p class="text-white/80">Más colores = más fitonutrientes. Al menos 3 colores distintos en cada plato.</p>
+                    </div>
+                    <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10" data-tilt>
+                        <h3 class="text-xl font-semibold mb-2">Descanso activo ☀️</h3>
+                        <p class="text-white/80">Pausa corta cada 60-90 min para caminar y estirar. Mejora foco y energía.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Nutrición -->
+        <section id="faq" class="py-14 bg-negro-900">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8">Preguntas frecuentes</h2>
+                <div class="max-w-3xl mx-auto space-y-3">
+                    <details class="reveal bg-white/5 rounded-xl border border-white/10">
+                        <summary class="cursor-pointer select-none px-4 py-3 font-semibold">¿Necesito suplementos?</summary>
+                        <div class="px-4 pb-4 text-white/80">Prioriza comida real. Consulta profesional si sospechas déficit (vitamina D, hierro, B12).</div>
+                    </details>
+                    <details class="reveal bg-white/5 rounded-xl border border-white/10">
+                        <summary class="cursor-pointer select-none px-4 py-3 font-semibold">¿Cuánta agua debo beber?</summary>
+                        <div class="px-4 pb-4 text-white/80">Como guía general 30-35 ml/kg/día. Ajusta según calor, ejercicio y señales del cuerpo.</div>
+                    </details>
+                    <details class="reveal bg-white/5 rounded-xl border border-white/10">
+                        <summary class="cursor-pointer select-none px-4 py-3 font-semibold">¿Dulces y antojos?</summary>
+                        <div class="px-4 pb-4 text-white/80">Equilibrio y porción consciente. Opta por frutas, yogur natural o postres caseros controlando azúcar.</div>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black text-white/70 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>ZYMO | Nutrición</p>
+            <p class="mt-2 text-white/50">&copy; 2025 Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+    // IntersectionObserver para reveals
+    const observer = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if (e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: .15 });
+    document.querySelectorAll('.reveal').forEach(el=> observer.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click',(e)=>{
+            const id = a.getAttribute('href'); if (!id || id==='#') return;
+            const el = document.querySelector(id); if (!el) return;
+            e.preventDefault(); el.scrollIntoView({ behavior:'smooth', block:'start' });
+        });
+    });
+
+    // Parallax héroe
+    const heroBg = document.getElementById('hero-bg');
+    window.addEventListener('scroll', ()=>{
+        const y = window.scrollY * 0.15; if (heroBg) heroBg.style.transform = `translateY(${y}px) scale(1.05)`;
+    }, { passive:true });
+
+    // Tilt
+    document.querySelectorAll('[data-tilt]').forEach(el=>{
+        const strength = 8; let rect;
+        function onMove(e){ rect = rect || el.getBoundingClientRect(); const px=(e.clientX-rect.left)/rect.width-.5; const py=(e.clientY-rect.top)/rect.height-.5; el.style.transform = `rotateY(${px*strength}deg) rotateX(${-py*strength}deg)`; }
+        function onLeave(){ el.style.transform = 'rotateY(0deg) rotateX(0deg)'; rect=null; }
+        el.addEventListener('mousemove', onMove); el.addEventListener('mouseleave', onLeave);
+    });
+    </script>
+
+</body>
+</html>
+
+

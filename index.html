@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZYMO - Cocina con Precisión</title>
+    <!-- Carga de Tailwind CSS CDN para un diseño rápido y responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'fondo-principal': '#fefcf8', /* Casi blanco, muy cálido */
+                        'beige-claro': '#fffaf0',  /* Fondo de las tarjetas */
+                        'beige-medio': '#e7d8c4',  /* Fondo secundario/Énfasis */
+                        'marron-oscuro': '#4a3f35', /* Texto y Acabados */
+                        'acento': '#a18e7c',       /* Botones e Interacción */
+                        'negro-cafe': '#2b2620',   /* Fondo oscuro elegante */
+                        'negro-suave': '#3a332b',  /* Tonalidad intermedia */
+                        'negro-900': '#0a0a0a',
+                        'negro-800': '#141414',
+                        'negro-700': '#1f1f1f'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Uso de Inter como fuente principal -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Animate.css para animaciones rápidas -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- Iconos de Lucide (asumiendo React/JS para la facilidad) o fallando se usa emoji -->
+
+    <style>
+        /* Estilos CSS Nativos para Animaciones */
+        @keyframes fadeInSlide {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated-card {
+            animation: fadeInSlide 0.7s ease-out backwards;
+        }
+
+        /* Hover de Botón: Empuje 3D */
+        .btn-acento:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Estilo para la barra de navegación fija */
+        .nav-fixed {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Aparición suave al hacer scroll */
+        .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+    </style>
+    <!-- Estilos del widget de asistente de cocina IA (aislados) -->
+    <style>
+        /* Shimmer sutil en el título del héroe */
+        .zimo-shimmer{position:relative;display:inline-block}
+        .zimo-shimmer:after{content:"";position:absolute;top:0;left:-120%;width:120%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.2),transparent);transform:skewX(-20deg);animation:zimoShimmer 4.5s ease-in-out 1s infinite}
+        @keyframes zimoShimmer{0%{left:-120%}60%{left:120%}100%{left:120%}}
+
+        /* Ripple para botones con clase .zimo-ripple */
+        .zimo-ripple{position:relative;overflow:hidden}
+        .zimo-ripple:after{content:"";position:absolute;left:50%;top:50%;width:0;height:0;background:rgba(255,255,255,.45);border-radius:50%;transform:translate(-50%,-50%);opacity:0;transition:width .65s ease,height .65s ease,opacity .8s ease}
+        .zimo-ripple:active:after{width:220%;height:220%;opacity:.15;transition:0s}
+
+        /* Tilt ligero en tarjetas con [data-tilt] */
+        [data-tilt]{transform-style:preserve-3d;transition:transform .35s ease, box-shadow .5s ease;will-change:transform}
+        [data-tilt]:hover{box-shadow:0 16px 40px rgba(0,0,0,.25)}
+
+        /* Detalles/FAQ: animación suave */
+        details[open] summary{border-bottom:1px solid rgba(255,255,255,.08)}
+        details>div{transition:max-height .55s ease,opacity .45s ease}
+
+        /* Stagger para .reveal */
+        .reveal{transition-delay:var(--delay,0s);transition-duration:.9s,.9s}
+
+        /* Transiciones y hovers globales para interactividad más notoria */
+        a, button{transition:transform .35s ease, box-shadow .6s ease, background-color .35s ease, color .35s ease, border-color .35s ease, opacity .35s ease; will-change: transform}
+        a:hover, button:hover{transform:translateY(-2px) scale(1.02)}
+        [class*="bg-white/5"], [class*="bg-white/10"], [class*="bg-white/20"], [class*="border-white/10"], .rounded-xl, .rounded-2xl{
+            transition:transform .45s ease, box-shadow .6s ease, background-color .45s ease, border-color .45s ease
+        }
+        [class*="bg-white/5"]:hover, [class*="bg-white/10"]:hover, [class*="bg-white/20"]:hover, [class*="border-white/10"]:hover, .rounded-xl:hover, .rounded-2xl:hover{
+            transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,.28)
+        }
+        .zimo-ai-widget{position:fixed;right:16px;bottom:16px;width:clamp(280px,28vw,360px);max-height:70vh;background:#fff8ec;border:1px solid rgba(255,255,255,0.1);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.35);display:flex;flex-direction:column;overflow:hidden;z-index:60}
+        .zimo-ai-header{display:flex;align-items:center;gap:8px;padding:10px 12px;background:linear-gradient(135deg,#cba07a,#9b8067);color:#1a120b;font-weight:700;border-bottom:1px solid rgba(0,0,0,0.1)}
+        .zimo-ai-header .dot{width:8px;height:8px;border-radius:9999px;background:#ffe6c8;box-shadow:0 0 0 3px rgba(255,255,255,0.15) inset}
+        .zimo-ai-title{font-size:14px;letter-spacing:.3px}
+        .zimo-ai-chat{padding:12px;display:flex;flex-direction:column;gap:10px;overflow:auto;background:linear-gradient(180deg,#fff8ec 0%, #fff3e0 100%)}
+        .zimo-ai-msg{max-width:82%;padding:10px 12px;border-radius:12px;font-size:14px;line-height:1.35;box-shadow:0 2px 6px rgba(0,0,0,0.06)}
+        .zimo-ai-user{align-self:flex-end;background:#ffe1c2;color:#2b2620;border:1px solid rgba(0,0,0,0.04)}
+        .zimo-ai-bot{align-self:flex-start;background:#f3e5d8;color:#2b2620;border:1px solid rgba(0,0,0,0.05)}
+        .zimo-ai-input{display:flex;gap:8px;padding:10px;background:#fff6ea;border-top:1px solid rgba(0,0,0,0.06)}
+        .zimo-ai-textarea{flex:1;min-height:44px;max-height:100px;resize:vertical;padding:10px 12px;border-radius:10px;border:1px solid rgba(0,0,0,0.12);background:#fffefb;color:#2b2620;font-size:14px}
+        .zimo-ai-send{background:#cba07a;color:#1a120b;font-weight:700;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;transition:transform .08s ease, filter .2s ease}
+        .zimo-ai-send:hover{filter:brightness(0.95)}
+        .zimo-ai-send:active{transform:translateY(1px)}
+        .zimo-ai-welcome{font-size:13px;color:#6b5b4a;background:#fff0dd;border:1px dashed rgba(0,0,0,0.08);padding:8px 10px;border-radius:10px;align-self:center;margin-bottom:6px}
+        .zimo-ai-toggle{position:fixed;right:16px;bottom:16px;width:54px;height:54px;border-radius:9999px;background:linear-gradient(135deg,#cba07a,#a88c73);color:#1a120b;border:none;box-shadow:0 8px 22px rgba(0,0,0,0.35);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;z-index:59}
+        .zimo-ai-hidden{display:none}
+        @media (max-width: 640px){.zimo-ai-widget{right:12px;left:12px;width:auto;max-height:72vh}}
+    </style>
+</head>
+
+<body class="bg-black text-white font-sans min-h-screen">
+
+    <!-- Header y Navegación Fija -->
+    <header class="nav-fixed sticky top-0 z-50 bg-black py-4 transition duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-white">ZYMO ✨</h1>
+            <nav class="space-x-4">
+                <a href="recetas.html" class="text-white hover:text-white/70 font-medium transition duration-200">Recetas</a>
+                <a href="comunidad.html" class="text-white hover:text-white/70 font-medium transition duration-200">Comunidad</a>
+                <a href="nutricion.html" class="text-white hover:text-white/70 font-medium transition duration-200">Nutrición</a>
+                <a href="#planes" class="text-white hover:text-white/70 font-medium transition duration-200">Planes</a>
+                <button class="bg-white text-black px-4 py-2 rounded-full text-sm font-semibold hover:brightness-90 transition duration-300">Iniciar Sesión</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sección Principal (Hero) a pantalla completa con imagen de fondo -->
+    <section id="hero" class="relative min-h-[85vh] md:min-h-screen overflow-hidden">
+        <img id="hero-bg" src="Principal.png" alt="Preparación artesanal en cocina moderna" class="absolute inset-0 w-full h-full object-cover object-center will-change-transform" />
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/65 to-black/95"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 flex items-center min-h-[85vh] md:min-h-screen">
+            <div class="max-w-3xl text-left">
+                <h2 class="animate__animated animate__fadeInUp text-5xl md:text-6xl font-extrabold mb-4 leading-tight text-white relative overflow-hidden"><span class="zimo-shimmer">ZYMO: cocina artesanal, ahora con IA que te acompaña</span></h2>
+                <p class="animate__animated animate__fadeInUp animate__delay-1s text-lg md:text-xl text-white/80 mb-8">Un producto nuevo e innovador: recetas vivas con asistencia inteligente en tiempo real. Cocina con precisión y confianza, paso a paso.</p>
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                    <a href="recetas.html" class="animate__animated animate__fadeInUp animate__delay-2s btn-acento bg-white text-black px-8 py-4 rounded-xl text-lg font-bold shadow-lg transition duration-300 zimo-ripple">Explorar recetas</a>
+                    <a href="#como-funciona" class="animate__animated animate__fadeInUp animate__delay-2s btn-acento bg-black/60 text-white px-8 py-4 rounded-xl text-lg font-semibold shadow-lg border border-white/20 backdrop-blur-sm transition duration-300 zimo-ripple">Cómo funciona</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Qué es ZYMO (Explicación clara del producto) -->
+    <section id="que-es" class="py-14 bg-negro-800">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="reveal">
+                <h2 class="text-4xl font-extrabold mb-4 text-beige-claro">¿Qué es ZYMO?</h2>
+                <p class="text-white/80 text-lg mb-5">ZYMO es tu cocina artesanal con un plus: <span class="font-semibold">asistencia de inteligencia artificial</span> integrada en cada receta. Te guía en lenguaje simple, ajusta recomendaciones a lo que tienes a mano y resuelve dudas en el momento.</p>
+                <ul class="space-y-3 text-white/80">
+                    <li>✅ Respuestas instantáneas dentro de la receta</li>
+                    <li>✅ Consejos visuales y puntos de control</li>
+                    <li>✅ Sustituciones inteligentes de ingredientes</li>
+                    <li>✅ Mejores resultados de forma consistente</li>
+                </ul>
+            </div>
+            <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-6" data-tilt>
+                <h3 class="text-xl font-semibold mb-3">Una experiencia fresca y motivadora</h3>
+                <p class="text-white/70">Diseñado para sentirse moderno, cálido y claro. Recibe ayuda real cuando la necesitas: “¿voy bien si mi mezcla se ve así?”, “¿puedo cambiar mantequilla por aceite?”.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cómo funciona (3-4 pasos) -->
+    <section id="como-funciona" class="py-14 bg-negro-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10">Cómo funciona</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="reveal bg-white/5 p-5 rounded-xl border border-white/10 text-left" data-tilt style="--delay:.05s">
+                    <p class="text-2xl mb-2">🔍</p>
+                    <h3 class="font-semibold mb-1">1. Elige una receta</h3>
+                    <p class="text-sm text-white/70">Selecciona tu objetivo (pan, lácteos, fermentos, conservas).</p>
+                </div>
+                <div class="reveal bg-white/5 p-5 rounded-xl border border-white/10 text-left" data-tilt style="--delay:.1s">
+                    <p class="text-2xl mb-2">🧑‍🍳</p>
+                    <h3 class="font-semibold mb-1">2. Cocina con guía</h3>
+                    <p class="text-sm text-white/70">Sigue pasos claros con tiempos, señales visuales y tips de técnica.</p>
+                </div>
+                <div class="reveal bg-white/5 p-5 rounded-xl border border-white/10 text-left" data-tilt style="--delay:.15s">
+                    <p class="text-2xl mb-2">🤖</p>
+                    <h3 class="font-semibold mb-1">3. Pregunta a la IA</h3>
+                    <p class="text-sm text-white/70">Resuelve dudas en contexto: sustituciones, texturas, temperaturas.</p>
+                </div>
+                <div class="reveal bg-white/5 p-5 rounded-xl border border-white/10 text-left" data-tilt style="--delay:.2s">
+                    <p class="text-2xl mb-2">🥇</p>
+                    <h3 class="font-semibold mb-1">4. Logra resultados</h3>
+                    <p class="text-sm text-white/70">Repite tus éxitos con consistencia y confianza en casa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planes -->
+    <!-- ¿Por qué es diferente? (beneficios claros) -->
+    <section id="diferente" class="py-14 bg-black">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10">¿Por qué ZYMO es diferente?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10">
+                    <h3 class="text-xl font-semibold mb-2">Asistencia en contexto</h3>
+                    <p class="text-white/80">La IA responde según la receta que estás siguiendo, no respuestas genéricas.</p>
+                </div>
+                <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10">
+                    <h3 class="text-xl font-semibold mb-2">Sustituciones inteligentes</h3>
+                    <p class="text-white/80">Sin ese ingrediente, sugiere alternativas realistas y cómo ajustar proporciones.</p>
+                </div>
+                <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10">
+                    <h3 class="text-xl font-semibold mb-2">Señales claras</h3>
+                    <p class="text-white/80">“Debe verse así”, “detente si huele así”, “a esta temperatura luce así”.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="planes" class="py-16 bg-negro-900">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4">Elige tu plan</h2>
+            <p class="text-white/70 mb-10">Accede a recetas premium, asistencia IA avanzada y mejoras continuas.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Básico -->
+                <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-6 text-left">
+                    <h3 class="text-2xl font-bold mb-2">Básico</h3>
+                    <p class="text-white/70 mb-4">Gratis para empezar</p>
+                    <ul class="space-y-2 text-sm text-white/80">
+                        <li>✔ 10 recetas gratuitas</li>
+                        <li>✔ Asistente IA básico (paso a paso)</li>
+                        <li>✔ Galería y comunidad</li>
+                        <li>— Sin recetas premium</li>
+                    </ul>
+                    <div class="mt-6">
+                        <a href="registro.html?plan=basico" class="block text-center bg-white text-black font-semibold py-3 rounded-lg">Comenzar</a>
+                    </div>
+                </div>
+
+                <!-- Pro -->
+                <div class="reveal rounded-2xl border border-white/10 bg-white/10 p-6 text-left transform md:-translate-y-2">
+                    <div class="inline-block text-xs uppercase tracking-wide bg-white/10 text-white/80 px-2 py-1 rounded-full mb-3">Popular</div>
+                    <h3 class="text-2xl font-bold mb-2">Pro</h3>
+                    <p class="text-white/70 mb-4">Para creadores constantes</p>
+                    <ul class="space-y-2 text-sm text-white/80">
+                        <li>✔ Todo lo del Básico</li>
+                        <li>✔ 60% de recetas premium</li>
+                        <li>✔ IA con recomendaciones personalizadas</li>
+                        <li>✔ Listas de compras inteligentes</li>
+                    </ul>
+                    <div class="mt-6">
+                        <a href="registro.html?plan=pro" class="block text-center bg-white text-black font-semibold py-3 rounded-lg">Probar Pro</a>
+                    </div>
+                </div>
+
+                <!-- Pro+ -->
+                <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-6 text-left">
+                    <h3 class="text-2xl font-bold mb-2">Pro+</h3>
+                    <p class="text-white/70 mb-4">Máximo control y precisión</p>
+                    <ul class="space-y-2 text-sm text-white/80">
+                        <li>✔ Todo lo del Pro</li>
+                        <li>✔ 100% de recetas premium</li>
+                        <li>✔ IA avanzada: ajustes por clima/equipo</li>
+                        <li>✔ Curvas de temperatura/tiempo y alertas</li>
+                    </ul>
+                    <div class="mt-6">
+                        <a href="registro.html?plan=proplus" class="block text-center bg-white text-black font-semibold py-3 rounded-lg">Elegir Pro+</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section id="testimonios" class="py-14 bg-negro-800">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-8">Lo que dicen quienes ya probaron ZYMO</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10 text-left">
+                    <p class="text-lg">“Logré mi primera masa madre estable 🙌. La IA me calmó cuando la mezcla se veía rara.”</p>
+                    <p class="text-sm text-white/60 mt-3">— Ana, pan casero</p>
+                </div>
+                <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10 text-left">
+                    <p class="text-lg">“No tenía mantequilla y me guió con aceite y tiempos. Quedó increíble.”</p>
+                    <p class="text-sm text-white/60 mt-3">— Luis, repostería</p>
+                </div>
+                <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10 text-left">
+                    <p class="text-lg">“Menos dudas, más confianza. Se siente como tener un chef a tu lado.”</p>
+                    <p class="text-sm text-white/60 mt-3">— Sofía, fermentos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-14 bg-negro-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8">Preguntas frecuentes</h2>
+            <div class="max-w-3xl mx-auto space-y-3">
+                <details class="reveal bg-white/5 rounded-xl border border-white/10">
+                    <summary class="cursor-pointer select-none px-4 py-3 font-semibold">¿Necesito crear cuenta o usar claves?</summary>
+                    <div class="px-4 pb-4 text-white/80">No. Todo funciona en tu navegador con Puter.js, sin login ni API keys.</div>
+                </details>
+                <details class="reveal bg-white/5 rounded-xl border border-white/10">
+                    <summary class="cursor-pointer select-none px-4 py-3 font-semibold">¿La IA responde sobre cualquier tema?</summary>
+                    <div class="px-4 pb-4 text-white/80">Está enfocada en la receta que lees. Si te sales del tema, te devuelve a la cocina con humor.</div>
+                </details>
+                <details class="reveal bg-white/5 rounded-xl border border-white/10">
+                    <summary class="cursor-pointer select-none px-4 py-3 font-semibold">¿Puedo usarla en el celular?</summary>
+                    <div class="px-4 pb-4 text-white/80">Sí. El diseño es responsivo y el chat se adapta a pantallas pequeñas.</div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- IA en ZYMO -->
+    <section id="ia" class="py-12 bg-black">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8">Recetas impulsadas por Inteligencia Artificial</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10">
+                    <h3 class="text-xl font-semibold mb-2">Aprendizaje continuo</h3>
+                    <p class="text-white/80">Nuestra IA analiza resultados, valoraciones y tiempos reales para mejorar cada receta con el uso.</p>
+                </div>
+                <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10">
+                    <h3 class="text-xl font-semibold mb-2">Recomendaciones personalizadas</h3>
+                    <p class="text-white/80">Ajusta cantidades, levados, hidratación y horneado según tu clima, equipo y objetivo de textura.</p>
+                </div>
+                <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10">
+                    <h3 class="text-xl font-semibold mb-2">Optimización técnica</h3>
+                    <p class="text-white/80">Propone curvas de temperatura/tiempo y avisos críticos para fermentos, lácteos y conservas más estables.</p>
+                </div>
+            </div>
+            <div class="reveal mt-8 bg-white/5 p-4 rounded-xl border border-white/10 text-center">
+                <p class="text-white/70 text-sm">Tu privacidad importa: los datos se usan de forma agregada para mejorar las recetas, no para identificarte.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objetivo y Propósito -->
+    <section id="proposito" class="py-12 bg-negro-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-10">Nuestro objetivo y propósito</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10">
+                    <h3 class="text-2xl font-semibold mb-3">Objetivo</h3>
+                    <p class="text-white/80">Ayudar a cualquier persona a dominar técnicas culinarias de precisión mediante recetas guiadas paso a paso, con tiempos claros, señales visuales y buenas prácticas de seguridad alimentaria.</p>
+                </div>
+                <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10">
+                    <h3 class="text-2xl font-semibold mb-3">Propósito</h3>
+                    <p class="text-white/80">Democratizar el arte de lo artesanal: fermentos, lácteos, panadería y conservas, promoviendo hábitos saludables y sostenibles con resultados constantes en casa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ¿Por qué ZYMO? -->
+    <section id="porque" class="py-12 bg-negro-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8">¿Por qué ZYMO?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="reveal bg-white/5 p-5 rounded-xl border border-white/10 hover:bg-white/10 transition duration-300 hover:-translate-y-1">
+                    <p class="text-2xl mb-2">⏱️</p>
+                    <h3 class="font-semibold">Tiempos precisos</h3>
+                    <p class="text-sm text-white/70">Ritmos de fermentación y cocción claros.</p>
+                </div>
+                <div class="reveal bg-white/5 p-5 rounded-xl border border-white/10 hover:bg-white/10 transition duration-300 hover:-translate-y-1">
+                    <p class="text-2xl mb-2">📋</p>
+                    <h3 class="font-semibold">Pasos guiados</h3>
+                    <p class="text-sm text-white/70">Instrucciones simples y verificables.</p>
+                </div>
+                <div class="reveal bg-white/5 p-5 rounded-xl border border-white/10 hover:bg-white/10 transition duration-300 hover:-translate-y-1">
+                    <p class="text-2xl mb-2">🧪</p>
+                    <h3 class="font-semibold">Ciencia práctica</h3>
+                    <p class="text-sm text-white/70">Control de temperatura, pH y densidad.</p>
+                </div>
+                <div class="reveal bg-white/5 p-5 rounded-xl border border-white/10 hover:bg-white/10 transition duration-300 hover:-translate-y-1">
+                    <p class="text-2xl mb-2">🥇</p>
+                    <h3 class="font-semibold">Resultados consistentes</h3>
+                    <p class="text-sm text-white/70">Calidad artesanal en cada lote.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner CTA -->
+    <section class="py-10 bg-gradient-to-r from-black via-negro-900 to-negro-800">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <h3 class="text-2xl md:text-3xl font-bold text-beige-claro">¿Listo para crear algo artesanal hoy?</h3>
+                <p class="text-white/70">Explora nuestras recetas guiadas y empieza ahora mismo.</p>
+            </div>
+            <a href="recetas.html" class="btn-acento bg-acento text-negro-cafe px-6 py-3 rounded-lg font-semibold">Ver todas las recetas</a>
+        </div>
+    </section>
+
+    <!-- Separador Decorativo -->
+    <div class="border-t-4 border-dashed border-white/10 max-w-7xl mx-auto my-10"></div>
+
+    <!-- Galería (imágenes agregadas) -->
+    <section id="galeria" class="py-12 bg-black">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-6">Galería</h2>
+            <div class="relative overflow-hidden rounded-2xl border border-white/10">
+                <div id="slider" class="whitespace-nowrap transition-transform duration-700">
+                    <img src="imagen 1.jpg" alt="Galería 1" class="inline-block w-full h-[320px] object-cover filter grayscale" />
+                    <img src="imagen 2.jpg" alt="Galería 2" class="inline-block w-full h-[320px] object-cover filter grayscale" />
+                    <img src="imagen 3.jpg" alt="Galería 3" class="inline-block w-full h-[320px] object-cover filter grayscale" />
+                    <img src="imagen 4.jpg" alt="Galería 4" class="inline-block w-full h-[320px] object-cover filter grayscale" />
+                </div>
+                <div class="absolute inset-x-0 bottom-3 flex justify-center gap-2">
+                    <button data-slide="0" class="dot w-2.5 h-2.5 rounded-full bg-white/50"></button>
+                    <button data-slide="1" class="dot w-2.5 h-2.5 rounded-full bg-white/30"></button>
+                    <button data-slide="2" class="dot w-2.5 h-2.5 rounded-full bg-white/30"></button>
+                    <button data-slide="3" class="dot w-2.5 h-2.5 rounded-full bg-white/30"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recetas destacadas con animación de selección -->
+    <section id="destacadas" class="py-16 bg-negro-800">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold text-beige-claro">Recetas Destacadas</h2>
+            <p class="text-white/60 mb-10">Una probadita de lo mejor de ZYMO</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <a href="masa-madre.html" class="group block rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/10 transition">
+                    <div class="h-44 overflow-hidden">
+                        <img src="imagen 1.jpg" alt="Masa Madre" class="w-full h-full object-cover filter grayscale group-hover:scale-105 transition duration-500" />
+                    </div>
+                    <div class="p-4 text-left">
+                        <h3 class="text-xl font-semibold">🥖 Masa Madre Artesanal</h3>
+                        <p class="text-sm text-white/70">Fermentación natural, sabor profundo.</p>
+                    </div>
+                </a>
+                <a href="vino.html" class="group block rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/10 transition">
+                    <div class="h-44 overflow-hidden">
+                        <img src="imagen 2.jpg" alt="Vino" class="w-full h-full object-cover filter grayscale group-hover:scale-105 transition duration-500" />
+                    </div>
+                    <div class="p-4 text-left">
+                        <h3 class="text-xl font-semibold">🍷 Vino Artesanal</h3>
+                        <p class="text-sm text-white/70">Fermentación controlada y trasiegos.</p>
+                    </div>
+                </a>
+                <a href="empanada.html" class="group block rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/10 transition">
+                    <div class="h-44 overflow-hidden">
+                        <img src="imagen 3.jpg" alt="Empanada" class="w-full h-full object-cover filter grayscale group-hover:scale-105 transition duration-500" />
+                    </div>
+                    <div class="p-4 text-left">
+                        <h3 class="text-xl font-semibold">🥟 Empanada Casera</h3>
+                        <p class="text-sm text-white/70">Masa crujiente y relleno jugoso.</p>
+                    </div>
+                </a>
+            </div>
+            <a href="recetas.html" class="inline-block mt-8 btn-acento bg-white text-black px-6 py-3 rounded-lg font-semibold">Ver todas las recetas</a>
+        </div>
+    </section>
+
+    <!-- Sección de Comunidad / Foro de Videos -->
+    <section id="comunidad" class="py-16 bg-negro-900">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-beige-claro">🎬 Foro de Videos y Consejos 🎬</h2>
+            <p class="text-lg text-white/70 mb-10">
+                Aprende de la comunidad. Usuarios comparten procedimientos detallados con videos que puedes seguir.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                
+                <!-- Post de Foro 1 -->
+                <div class="reveal bg-white/5 p-5 rounded-xl text-left border-2 border-white/10 hover:border-acento transition duration-300 delay-400">
+                    <h3 class="text-xl font-semibold mb-2">"Cómo atemperar chocolate como un pro"</h3>
+                    <p class="text-sm text-acento mb-3">Publicado por: @ChocoMaestro - Hace 5h</p>
+                    <p class="text-white/80 mb-4">
+                        Video tutorial de 10 minutos para lograr el temperado perfecto, crucial para cualquier postre con cobertura brillante y crujiente.
+                    </p>
+                    <button class="btn-acento bg-black text-beige-claro px-4 py-2 rounded-full text-sm font-semibold hover:bg-acento hover:text-negro-cafe transition duration-300">
+                        Ver Video
+                    </button>
+                </div>
+                
+                <!-- Post de Foro 2 -->
+                <div class="reveal bg-white/5 p-5 rounded-xl text-left border-2 border-white/10 hover:border-acento transition duration-300 delay-500">
+                    <h3 class="text-xl font-semibold mb-2">"Técnica de Corte Julienne Rápida"</h3>
+                    <p class="text-sm text-acento mb-3">Publicado por: @CuchilloDeOro - Hace 1d</p>
+                    <p class="text-white/80 mb-4">
+                        Video-guía sobre la posición correcta de los dedos y el movimiento del cuchillo para cortes uniformes y rápidos, ideal para guarniciones.
+                    </p>
+                    <button class="btn-acento bg-black text-beige-claro px-4 py-2 rounded-full text-sm font-semibold hover:bg-acento hover:text-negro-cafe transition duration-300">
+                        Ver Video
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Widget de Asistente de Cocina IA -->
+    <button id="zimo-ai-toggle" class="zimo-ai-toggle" aria-label="Abrir asistente">🍳</button>
+    <div id="zimo-ai" class="zimo-ai-widget zimo-ai-hidden" role="dialog" aria-label="Asistente de cocina">
+        <div class="zimo-ai-header">
+            <div class="dot"></div>
+            <div class="zimo-ai-title">Asistente de Cocina IA</div>
+            <button id="zimo-ai-close" title="Cerrar" style="margin-left:auto;background:transparent;border:none;color:#1a120b;font-weight:700;font-size:16px;cursor:pointer">×</button>
+        </div>
+        <div id="zimo-ai-chat" class="zimo-ai-chat">
+            <div class="zimo-ai-welcome">👩‍🍳 ¡Hola! Soy tu asistente de cocina IA, pregúntame cualquier cosa sobre la receta.</div>
+        </div>
+        <div class="zimo-ai-input">
+            <textarea id="zimo-ai-textarea" class="zimo-ai-textarea" placeholder="Escribe tu pregunta... (Enter para enviar)" spellcheck="true"></textarea>
+            <button id="zimo-ai-send" class="zimo-ai-send">Enviar</button>
+        </div>
+    </div>
+    <!-- Fin Widget -->
+
+    <footer class="bg-black text-white/70 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>ZYMO | Transformando la cocina compleja en arte sencillo.</p>
+            <p class="mt-2 text-white/50">&copy; 2025 Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Revela elementos con .reveal al entrar en viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Slider simple automático
+        const slider = document.getElementById('slider');
+        const dots = document.querySelectorAll('.dot');
+        let slide = 0;
+        function goTo(n){
+            slide = (n + 4) % 4;
+            slider.style.transform = `translateX(-${slide * 100}%)`;
+            dots.forEach((d,i)=> d.style.backgroundColor = i===slide ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.3)');
+        }
+        dots.forEach(d=> d.addEventListener('click', e=> goTo(parseInt(e.target.getAttribute('data-slide')))) );
+        setInterval(()=> goTo(slide+1), 4000);
+        
+        // Smooth scroll en anclas internas
+        document.querySelectorAll('a[href^="#"]').forEach(a=>{
+            a.addEventListener('click', (e)=>{
+                const id = a.getAttribute('href');
+                if (!id || id === '#') return;
+                const el = document.querySelector(id);
+                if (!el) return;
+                e.preventDefault();
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Parallax sutil en el fondo del héroe
+        const heroBg = document.getElementById('hero-bg');
+        window.addEventListener('scroll', ()=>{
+            const y = window.scrollY * 0.15; // factor parallax
+            if (heroBg) heroBg.style.transform = `translateY(${y}px) scale(1.05)`;
+        }, { passive: true });
+
+        // Tilt ligero para elementos con [data-tilt]
+        const tiltEls = document.querySelectorAll('[data-tilt]');
+        tiltEls.forEach(el=>{
+            const strength = 8;
+            let rect;
+            function onMove(e){
+                rect = rect || el.getBoundingClientRect();
+                const px = (e.clientX - rect.left) / rect.width - 0.5;
+                const py = (e.clientY - rect.top) / rect.height - 0.5;
+                el.style.transform = `rotateY(${px*strength}deg) rotateX(${-py*strength}deg)`;
+            }
+            function onLeave(){
+                el.style.transform = 'rotateY(0deg) rotateX(0deg)';
+                rect = null;
+            }
+            el.addEventListener('mousemove', onMove);
+            el.addEventListener('mouseleave', onLeave);
+        });
+
+        // FAQ: animación de contenido (max-height auto)
+        document.querySelectorAll('#faq details').forEach(d=>{
+            const content = d.querySelector('div');
+            if (!content) return;
+            function update(){
+                if (d.open){
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    content.style.opacity = '1';
+                } else {
+                    content.style.maxHeight = '0px';
+                    content.style.opacity = '0';
+                }
+            }
+            d.addEventListener('toggle', update);
+            // Estado inicial
+            content.style.overflow = 'hidden';
+            content.style.maxHeight = '0px';
+            content.style.opacity = '0';
+        });
+
+        // =====================
+        // Asistente de Cocina IA (Puter.js)
+        // =====================
+        const aiRoot = document.getElementById('zimo-ai');
+        const aiToggle = document.getElementById('zimo-ai-toggle');
+        const aiClose = document.getElementById('zimo-ai-close');
+        const aiChat = document.getElementById('zimo-ai-chat');
+        const aiTextarea = document.getElementById('zimo-ai-textarea');
+        const aiSend = document.getElementById('zimo-ai-send');
+
+        function appendMsg(text, who){
+            const el = document.createElement('div');
+            el.className = `zimo-ai-msg ${who === 'user' ? 'zimo-ai-user' : 'zimo-ai-bot'}`;
+            el.textContent = text;
+            aiChat.appendChild(el);
+            aiChat.scrollTop = aiChat.scrollHeight;
+        }
+
+        function setSending(disabled){
+            aiSend.disabled = disabled;
+            aiSend.style.opacity = disabled ? .7 : 1;
+        }
+
+        async function askAI(question){
+            const title = document.querySelector('h1')?.innerText?.trim() || document.title || 'esta receta';
+            const r = await fetch('/api/gemini', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question, recipeTitle: title })
+            });
+            const data = await r.json();
+            return data?.text || '…';
+        }
+
+        async function sendCurrent(){
+            const q = aiTextarea.value.trim();
+            if (!q) return;
+            appendMsg(q, 'user');
+            aiTextarea.value = '';
+            setSending(true);
+            try{
+                const a = await askAI(q);
+                appendMsg(a || 'Hecho.', 'bot');
+            }catch(err){
+                console.error(err);
+                appendMsg('Lo siento, hubo un problema al procesar tu pregunta. Intenta nuevamente.', 'bot');
+            }finally{
+                setSending(false);
+            }
+        }
+
+        aiSend?.addEventListener('click', sendCurrent);
+        aiTextarea?.addEventListener('keydown', (e)=>{
+            if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendCurrent(); }
+        });
+
+        aiToggle?.addEventListener('click', ()=>{
+            aiRoot.classList.toggle('zimo-ai-hidden');
+            aiToggle.classList.toggle('zimo-ai-hidden');
+            if (!aiRoot.classList.contains('zimo-ai-hidden')){
+                setTimeout(()=> aiTextarea?.focus(), 50);
+            }
+        });
+        aiClose?.addEventListener('click', ()=>{
+            aiRoot.classList.add('zimo-ai-hidden');
+            aiToggle.classList.remove('zimo-ai-hidden');
+        });
+    </script>
+
+</body>
+</html>

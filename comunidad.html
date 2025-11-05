@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidad | ZYMO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { 'negro-900':'#0a0a0a','negro-800':'#141414','negro-700':'#1f1f1f','acento':'#e5e5e5' }, fontFamily:{ sans:['Inter','sans-serif'] } } } }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeInSlide { from { opacity:0; transform: translateY(22px);} to { opacity:1; transform: translateY(0);} }
+        .animated-card{ animation: fadeInSlide .9s ease-out both; }
+        .btn-acento{ position:relative; overflow:hidden; transition: transform .35s ease, box-shadow .6s ease, background-color .35s ease, color .35s ease, border-color .35s ease }
+        .btn-acento:hover{ transform: translateY(-2px) scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,.28) }
+        .btn-acento:after{ content:""; position:absolute; left:50%; top:50%; width:0; height:0; background:rgba(255,255,255,.45); border-radius:50%; transform:translate(-50%,-50%); opacity:0; transition: width .65s ease, height .65s ease, opacity .8s ease }
+        .btn-acento:active:after{ width:220%; height:220%; opacity:.15; transition:0s }
+        .reveal{ opacity:0; transform: translateY(16px); transition: opacity .9s ease, transform .9s ease; transition-delay: var(--delay,0s) }
+        .reveal.visible{ opacity:1; transform: translateY(0) }
+        [data-tilt]{ transform-style:preserve-3d; transition: transform .35s ease, box-shadow .5s ease; will-change: transform }
+        [data-tilt]:hover{ box-shadow: 0 16px 40px rgba(0,0,0,.25) }
+    </style>
+</head>
+<body class="bg-negro-900 text-white font-sans min-h-screen">
+
+    <header class="nav-fixed sticky top-0 z-50 bg-black py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-white">ZYMO ✨</a>
+            <nav class="space-x-4">
+                <a href="recetas.html" class="text-white hover:text-white/70 font-medium transition">Recetas</a>
+                <a href="comunidad.html" class="text-white/90 font-semibold">Comunidad</a>
+                <a href="nutricion.html" class="text-white/70 hover:text-white/90 font-medium transition">Nutrición</a>
+                <a href="index.html#planes" class="text-white/70 hover:text-white/90 font-medium transition">Planes</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Comunidad -->
+    <section class="relative min-h-[50vh] overflow-hidden">
+        <img src="Principal.png" alt="Comunidad de cocina" class="absolute inset-0 w-full h-full object-cover object-center" />
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/65 to-black/90"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 py-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-3">Comparte y descubre recetas</h1>
+            <p class="text-white/80 max-w-2xl">Sube tus mejores recetas, comenta, y encuentra inspiración de la comunidad. Entre todos hacemos un recetario vivo e infinito.</p>
+            <div class="mt-6 flex gap-3">
+                <a href="#compartir" class="btn-acento bg-white text-black px-6 py-3 rounded-lg font-semibold">Compartir receta</a>
+                <a href="#descubrir" class="btn-acento bg-black/60 text-white px-6 py-3 rounded-lg font-semibold border border-white/20">Descubrir recetas</a>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <!-- Sección de "post" como en la home -->
+        <section id="foro" class="py-14 bg-negro-900">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10">Foro de Videos y Consejos</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                    <div class="reveal bg-white/5 p-5 rounded-xl text-left border-2 border-white/10 hover:border-acento transition" data-tilt>
+                        <h3 class="text-xl font-semibold mb-2">"Cómo atemperar chocolate como un pro"</h3>
+                        <p class="text-sm text-acento mb-3">Publicado por: @ChocoMaestro - Hace 5h</p>
+                        <p class="text-white/80 mb-4">Video tutorial de 10 minutos para lograr el temperado perfecto, crucial para coberturas brillantes y crujientes.</p>
+                        <button class="btn-acento bg-black text-beige-claro px-4 py-2 rounded-full text-sm font-semibold hover:bg-acento hover:text-negro-cafe transition">Ver Video</button>
+                    </div>
+                    <div class="reveal bg-white/5 p-5 rounded-xl text-left border-2 border-white/10 hover:border-acento transition" data-tilt style="--delay:.05s">
+                        <h3 class="text-xl font-semibold mb-2">"Técnica de Corte Julienne Rápida"</h3>
+                        <p class="text-sm text-acento mb-3">Publicado por: @CuchilloDeOro - Hace 1d</p>
+                        <p class="text-white/80 mb-4">Video-guía sobre posición de dedos y movimiento del cuchillo para cortes uniformes y rápidos.</p>
+                        <button class="btn-acento bg-black text-beige-claro px-4 py-2 rounded-full text-sm font-semibold hover:bg-acento hover:text-negro-cafe transition">Ver Video</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compartir receta (localStorage) -->
+        <section id="compartir" class="py-14 bg-negro-800">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Comparte tu receta</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <form id="form-receta" class="reveal bg-white/5 p-6 rounded-2xl border border-white/10" data-tilt>
+                        <label class="block mb-2 text-sm">Título</label>
+                        <input id="r-titulo" class="w-full mb-3 px-3 py-2 rounded-lg bg-black/40 border border-white/10" placeholder="Empanada vegana crujiente" />
+                        <label class="block mb-2 text-sm">Descripción</label>
+                        <textarea id="r-desc" class="w-full mb-3 px-3 py-2 rounded-lg bg-black/40 border border-white/10" rows="4" placeholder="Resumen y toque especial..."></textarea>
+                        <label class="block mb-2 text-sm">URL (opcional)</label>
+                        <input id="r-url" class="w-full mb-4 px-3 py-2 rounded-lg bg-black/40 border border-white/10" placeholder="https://..." />
+                        <button type="submit" class="btn-acento bg-white text-black px-6 py-3 rounded-lg font-semibold">Publicar</button>
+                        <p id="r-msg" class="mt-3 text-sm text-white/70"></p>
+                    </form>
+                    <div class="reveal bg-white/5 p-6 rounded-2xl border border-white/10" data-tilt>
+                        <h3 class="text-xl font-semibold mb-3">Tu privacidad</h3>
+                        <p class="text-white/70">Las recetas compartidas aquí se guardan en tu navegador con localStorage. Puedes limpiarlas cuando quieras y no se suben a servidores.</p>
+                        <button id="r-clear" class="mt-4 btn-acento bg-black/60 text-white px-6 py-3 rounded-lg font-semibold border border-white/20">Borrar mis recetas locales</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Descubrir más recetas -->
+        <section id="descubrir" class="py-14 bg-negro-900">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8">Descubre recetas de la comunidad</h2>
+                <div id="grid-recetas" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+                <div class="text-center mt-8">
+                    <a href="recetas.html" class="btn-acento bg-white text-black px-6 py-3 rounded-lg font-semibold">Ver todas las recetas</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black text-white/70 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>ZYMO | Comunidad</p>
+            <p class="mt-2 text-white/50">&copy; 2025 Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+    // Reveal
+    const observer = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if (e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target);} }); }, { threshold:.15 });
+    document.querySelectorAll('.reveal').forEach(el=> observer.observe(el));
+
+    // Form share (localStorage)
+    const key = 'zymo_recetas_comunidad_v1';
+    const form = document.getElementById('form-receta');
+    const grid = document.getElementById('grid-recetas');
+    const msg = document.getElementById('r-msg');
+    const btnClear = document.getElementById('r-clear');
+
+    function loadItems(){
+        const items = JSON.parse(localStorage.getItem(key) || '[]');
+        grid.innerHTML = '';
+        items.forEach((it, i)=>{
+            const card = document.createElement('a');
+            card.href = it.url || '#';
+            card.target = it.url ? '_blank' : '';
+            card.className = 'reveal bg-white/5 p-5 rounded-2xl border border-white/10 hover:bg-white/10 transition block';
+            card.setAttribute('data-tilt','');
+            card.innerHTML = `<h3 class="text-lg font-semibold mb-1">${it.titulo}</h3><p class="text-white/70 text-sm">${it.desc}</p>`;
+            grid.appendChild(card);
+            observer.observe(card);
+        });
+    }
+    loadItems();
+
+    form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const titulo = document.getElementById('r-titulo').value.trim();
+        const desc = document.getElementById('r-desc').value.trim();
+        const url = document.getElementById('r-url').value.trim();
+        if (!titulo || !desc){ msg.textContent = 'Por favor, completa título y descripción.'; return; }
+        const items = JSON.parse(localStorage.getItem(key) || '[]');
+        items.unshift({ titulo, desc, url, ts: Date.now() });
+        localStorage.setItem(key, JSON.stringify(items));
+        msg.textContent = '¡Receta publicada localmente!';
+        form.reset();
+        loadItems();
+    });
+
+    btnClear.addEventListener('click', ()=>{
+        localStorage.removeItem(key);
+        loadItems();
+        msg.textContent = 'Recetas locales eliminadas.';
+    });
+    </script>
+
+</body>
+</html>
+
+

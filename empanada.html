@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receta - Empanada Casera | Sabor Creador</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'negro-900': '#0a0a0a',
+                        'negro-800': '#141414',
+                        'negro-700': '#1f1f1f',
+                        'acento': '#e5e5e5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeInSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animated-card { animation: fadeInSlide 0.6s ease-out both; }
+        .btn-acento:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.06); }
+        .nav-fixed { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+    <meta name="description" content="Empanada casera con masa crujiente y relleno jugoso. Pasos y tiempos.">
+</head>
+<body class="bg-negro-900 text-white font-sans min-h-screen">
+
+    <header class="nav-fixed sticky top-0 z-50 bg-black py-4" aria-label="Barra de navegación">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-white">ZYMO ✨</a>
+            <nav class="flex items-center gap-3" aria-label="Seleccionar receta">
+                <label for="receta-select" class="text-sm text-white/70">Recetas</label>
+                <select id="receta-select" class="bg-negro-700 border border-white/10 rounded-lg px-3 py-2 text-white" onchange="location.href=this.value">
+                    <option value="recetas.html">Todas las recetas</option>
+                    <option value="masa-madre.html">Masa Madre</option>
+                    <option value="vino.html">Vino</option>
+                    <option value="empanada.html" selected>Empanada</option>
+                    <option value="kombucha.html">Kombucha</option>
+                    <option value="yogur.html">Yogur</option>
+                    <option value="queso-fresco.html">Queso Fresco</option>
+                    <option value="mermelada.html">Mermelada</option>
+                    <option value="pan-campo.html">Pan de Campo</option>
+                    <option value="chucrut.html">Chucrut</option>
+                    <option value="kimchi.html">Kimchi</option>
+                    <option value="kefir-agua.html">Kéfir de Agua</option>
+                    <option value="pickles-rapidos.html">Pickles Rápidos</option>
+                    <option value="conserva-tomate.html">Conserva de Tomate</option>
+                    <option value="sidra.html">Sidra</option>
+                    <option value="mantequilla-casera.html">Mantequilla Casera</option>
+                </select>
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-12">
+        <section class="relative h-64 mb-8">
+            <img src="imagen 3.jpg" alt="Empanada" class="absolute inset-0 w-full h-full object-cover filter grayscale" />
+            <div class="absolute inset-0 bg-black/50"></div>
+        </section>
+        <section class="max-w-4xl mx-auto px-4">
+            <h1 class="text-4xl font-extrabold mb-3">🥟 Empanada Casera</h1>
+            <p class="text-white/80 mb-8">Masa crujiente, relleno jugoso. Sigue tiempos y temperaturas para un resultado perfecto.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+                <div class="animated-card bg-white/5 p-4 rounded-xl border border-white/10">
+                    <p class="text-sm text-acento">Tiempo total</p>
+                    <p class="text-xl font-semibold">1-2 horas</p>
+                </div>
+                <div class="animated-card bg-white/5 p-4 rounded-xl border border-white/10">
+                    <p class="text-sm text-acento">Dificultad</p>
+                    <p class="text-xl font-semibold">Baja-Media</p>
+                </div>
+                <div class="animated-card bg-white/5 p-4 rounded-xl border border-white/10">
+                    <p class="text-sm text-acento">Rendimiento</p>
+                    <p class="text-xl font-semibold">12-16 unidades</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <section class="bg-white/5 p-6 rounded-2xl shadow-sm border border-white/10" aria-labelledby="ingredientes">
+                    <h2 id="ingredientes" class="text-2xl font-bold mb-3">Ingredientes (masa)</h2>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>500 g harina de trigo</li>
+                        <li>100 g manteca o 80 ml aceite</li>
+                        <li>250-280 ml agua tibia</li>
+                        <li>10 g sal</li>
+                        <li>1 huevo (opcional para dorar)</li>
+                    </ul>
+                    <h3 class="text-xl font-semibold mt-4 mb-2">Relleno sugerido</h3>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Carne molida/pollo o verduras salteadas</li>
+                        <li>Cebolla, pimentón, especias</li>
+                        <li>Huevo duro (opcional)</li>
+                    </ul>
+                </section>
+                <section class="bg-white/5 p-6 rounded-2xl shadow-sm border border-white/10" aria-labelledby="equipo">
+                    <h2 id="equipo" class="text-2xl font-bold mb-3">Equipo</h2>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Bol grande y rodillo</li>
+                        <li>Sartén</li>
+                        <li>Horno o freidora de aire</li>
+                        <li>Bandeja con papel de hornear</li>
+                    </ul>
+                </section>
+            </div>
+
+            <section class="bg-transparent">
+                <h2 class="text-2xl font-bold mb-4">Pasos detallados</h2>
+                <ol class="space-y-4">
+                    <li class="bg-white/5 p-5 rounded-xl border border-white/10"><strong>Masa:</strong> Mezcla harina y sal. Incorpora manteca/aceite. Agrega agua poco a poco hasta masa suave. Reposa 20 min.</li>
+                    <li class="bg-white/5 p-5 rounded-xl border border-white/10"><strong>Relleno:</strong> Sofríe cebolla y pimentón, añade proteína y especias. Deja enfriar.</li>
+                    <li class="bg-white/5 p-5 rounded-xl border border-white/10"><strong>Formado:</strong> Estira, corta discos (12-14 cm), rellena, humedece bordes y sella con repulgue.</li>
+                    <li class="bg-white/5 p-5 rounded-xl border border-white/10"><strong>Cocción:</strong> Horno 200°C 20-25 min (pincela con huevo para brillo) o freidora 180°C 12-15 min.</li>
+                    <li class="bg-white/5 p-5 rounded-xl border border-white/10"><strong>Reposo:</strong> Deja 5 min antes de servir para fijar jugos.</li>
+                </ol>
+            </section>
+
+            <section class="mt-10 bg-white/5 p-6 rounded-2xl border border-white/10">
+                <h2 class="text-2xl font-bold mb-3">Consejos</h2>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>No sobrecargues el relleno para evitar fugas.</li>
+                    <li>Mantén la masa tapada para que no se seque mientras formas.</li>
+                    <li>Prueba distintos rellenos y salsas para acompañar.</li>
+                </ul>
+            </section>
+
+            <div class="mt-10 flex flex-col sm:flex-row gap-4">
+                <a href="vino.html" class="btn-acento bg-black text-white px-6 py-3 rounded-lg font-semibold text-center">⟵ Anterior</a>
+                <a href="kombucha.html" class="btn-acento bg-white text-black px-6 py-3 rounded-lg font-semibold text-center">Siguiente ⟶</a>
+                <a href="recetas.html" class="btn-acento bg-white text-black px-6 py-3 rounded-lg font-semibold text-center">Ver todas las recetas</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Asistente IA (flotante) -->
+    <div id="ai-assistant" class="fixed bottom-6 right-6 z-50">
+        <button id="aiToggle" class="bg-white text-black px-4 py-2 rounded-full font-semibold shadow-lg hover:brightness-90">🤖 Asistente</button>
+        <div id="aiPanel" class="hidden mt-2 w-80 bg-black/90 text-white rounded-2xl border border-white/10 shadow-2xl p-4 backdrop-blur">
+            <div class="flex items-center justify-between mb-2">
+                <h4 class="font-bold">Asistente IA</h4>
+                <button id="aiClose" class="text-white/70 hover:text-white">✕</button>
+            </div>
+            <p class="text-sm text-white/70 mb-3">Te guío paso a paso. Pulsa Siguiente para resaltar el paso actual en la receta.</p>
+            <div class="flex gap-2">
+                <button id="prevStep" class="flex-1 bg-black text-white border border-white/20 rounded-lg px-3 py-2 hover:bg-white/10">⟵ Anterior</button>
+                <button id="nextStep" class="flex-1 bg-white text-black rounded-lg px-3 py-2 hover:brightness-95">Siguiente ⟶</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (() => {
+        const toggle = document.getElementById('aiToggle');
+        const panel = document.getElementById('aiPanel');
+        const closeBtn = document.getElementById('aiClose');
+        const nextBtn = document.getElementById('nextStep');
+        const prevBtn = document.getElementById('prevStep');
+        const steps = Array.from(document.querySelectorAll('ol li'));
+        let idx = 0;
+        function highlight(i){
+            if(!steps.length) return;
+            steps.forEach(s => s.classList.remove('ring-2','ring-white','ring-offset-2','ring-offset-black'));
+            const el = steps[i];
+            if(!el) return;
+            el.classList.add('ring-2','ring-white','ring-offset-2','ring-offset-black','transition');
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        nextBtn.addEventListener('click', () => { idx = (idx + 1) % steps.length; highlight(idx); });
+        prevBtn.addEventListener('click', () => { idx = (idx - 1 + steps.length) % steps.length; highlight(idx); });
+        toggle.addEventListener('click', () => panel.classList.toggle('hidden'));
+        closeBtn.addEventListener('click', () => panel.classList.add('hidden'));
+        if (steps.length) highlight(idx);
+    })();
+    </script>
+
+    <footer class="bg-black text-white/70 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>ZYMO | Empanada</p>
+            <p class="mt-2 text-white/50">&copy; 2025 Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+
+

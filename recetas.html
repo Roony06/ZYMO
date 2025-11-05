@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todas las Recetas | ZYMO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'negro-900': '#0a0a0a',
+                        'negro-800': '#141414',
+                        'negro-700': '#1f1f1f',
+                        'acento': '#e5e5e5',
+                    },
+                    fontFamily: { sans: ['Inter','sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeInSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animated-card { animation: fadeInSlide 0.6s ease-out both; }
+        .btn-acento:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.06); }
+        .nav-fixed { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="bg-negro-900 text-white font-sans min-h-screen">
+
+    <header class="nav-fixed sticky top-0 z-50 bg-black py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-white">ZYMO ✨</a>
+            <nav class="space-x-4">
+                <a href="recetas.html" class="text-white/90 hover:text-acento font-semibold">Recetas</a>
+                <a href="index.html#comunidad" class="text-white/80 hover:text-acento">Comunidad</a>
+                <a href="index.html#proposito" class="text-white/80 hover:text-acento">Propósito</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-12">
+        <section class="max-w-7xl mx-auto px-4 text-center">
+            <h1 class="text-4xl font-extrabold mb-2 text-white">Todas las Recetas de ZYMO</h1>
+            <p class="text-white/70 mb-10">Explora nuestras 15 recetas artesanales con guías detalladas.</p>
+
+            <ul class="max-w-3xl mx-auto text-left divide-y divide-white/10 bg-white/5 rounded-2xl shadow-sm">
+                <li>
+                    <a href="masa-madre.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🥖 Masa Madre Artesanal</span>
+                            <div class="text-sm text-white/60 font-mono">#FermentaciónLenta #LevaduraNatural</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0">Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="vino.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🍷 Vino Artesanal</span>
+                            <div class="text-sm text-white/60 font-mono">#Fermentación #Trasiegos #Sanitización</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0"><span class="mr-2 rounded-full bg-white/10 px-2 py-0.5 text-xs">Premium</span>Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="empanada.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🥟 Empanada Casera</span>
+                            <div class="text-sm text-white/60 font-mono">#MasaCrujiente #RellenoJugoso</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0">Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="kombucha.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🧪 Kombucha Artesanal</span>
+                            <div class="text-sm text-white/60 font-mono">#SCOBY #Fermentación1 #Fermentación2</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0"><span class="mr-2 rounded-full bg-white/10 px-2 py-0.5 text-xs">Premium</span>Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="yogur.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🥛 Yogur Natural</span>
+                            <div class="text-sm text-white/60 font-mono">#Pasteurización #Inoculación #Incubación</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0">Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="queso-fresco.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🧀 Queso Fresco</span>
+                            <div class="text-sm text-white/60 font-mono">#Coagulación #Corte #Desuerado</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0"><span class="mr-2 rounded-full bg-white/10 px-2 py-0.5 text-xs">Premium</span>Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="mermelada.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🍓 Mermelada Artesanal</span>
+                            <div class="text-sm text-white/60 font-mono">#Macerado #PuntoDeGel #Envasado</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0">Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pan-campo.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🥖 Pan de Campo</span>
+                            <div class="text-sm text-white/60 font-mono">#Autólisis #Pliegues #CostraCrujiente</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0">Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chucrut.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🥬 Chucrut</span>
+                            <div class="text-sm text-white/60 font-mono">#Salmuera #Fermentación #Probióticos</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0">Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="kimchi.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🌶️ Kimchi</span>
+                            <div class="text-sm text-white/60 font-mono">#Gochugaru #FermentoCoreano #Umami</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0">Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="kefir-agua.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">💧 Kéfir de Agua</span>
+                            <div class="text-sm text-white/60 font-mono">#Probiótico #Efervescente #Bebida</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0">Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pickles-rapidos.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🥒 Pickles Rápidos</span>
+                            <div class="text-sm text-white/60 font-mono">#Encurtido #Express #Crujientes</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0">Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="conserva-tomate.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🍅 Conserva de Tomate</span>
+                            <div class="text-sm text-white/60 font-mono">#BañoMaría #Acidificación #Despensa</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0">Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="sidra.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🍎 Sidra</span>
+                            <div class="text-sm text-white/60 font-mono">#Manzana #Fermentación #Espumoso</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0">Ver receta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="mantequilla-casera.html" class="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-white/10 transition">
+                        <div>
+                            <span class="text-xl font-semibold text-white">🧈 Mantequilla Casera</span>
+                            <div class="text-sm text-white/60 font-mono">#Batido #Lavado #Salado</div>
+                        </div>
+                        <span class="text-white/80 font-semibold mt-2 sm:mt-0">Ver receta</span>
+                    </a>
+                </li>
+            </ul>
+
+            <a href="index.html" class="inline-block mt-10 btn-acento bg-white text-black px-6 py-3 rounded-lg font-semibold">Volver a inicio</a>
+        </section>
+    </main>
+
+    <footer class="bg-black text-white/70 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>ZYMO | Todas las recetas</p>
+            <p class="mt-2 text-white/50">&copy; 2025 Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+
+
+
